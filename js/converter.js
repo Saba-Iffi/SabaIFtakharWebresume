@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const sourceCurrency = document.getElementById('sourceCurrency');
     const destinationCurrency = document.getElementById('destinationCurrency');
@@ -11,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const timestamp = document.getElementById('timestamp');
     const error = document.getElementById('error');
     let ratesData = {};
-
+  
     const fetchRates = async () => {
         try {
             const response = await fetch('https://www.floatrates.com/daily/gbp.json');
@@ -22,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching exchange rates: ', err);
         }
     };
-
+  
     const populateCurrencies = () => {
         for (const currency in ratesData) {
             const option1 = document.createElement('option');
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         updateExchangeRate();
     };
-
+  
     const updateExchangeRate = () => {
         const source = sourceCurrency.value;
         const destination = destinationCurrency.value;
@@ -48,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         exchangeRate.textContent = `1 ${source.toUpperCase()} = ${rate.toFixed(4)} ${destination.toUpperCase()}`;
         lastUpdate.textContent = `Last Update: ${new Date().toLocaleString('en-GB', { timeZone: 'GMT' })}`;
     };
-
+  
     const convert = () => {
         const amount = parseFloat(sourceAmount.value);
         if (amount <= 0) {
@@ -64,10 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
         result.textContent = `${amount.toFixed(2)} ${source.toUpperCase()} = ${convertedAmount.toFixed(2)} ${destination.toUpperCase()}`;
         timestamp.textContent = `Calculation Timestamp: ${new Date().toLocaleString('en-GB', { timeZone: 'GMT' })}`;
     };
-
+  
     sourceCurrency.addEventListener('change', updateExchangeRate);
     destinationCurrency.addEventListener('change', updateExchangeRate);
     convertButton.addEventListener('click', convert);
-
+  
     fetchRates();
-});
+  });
+
+
+  
